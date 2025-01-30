@@ -1,0 +1,102 @@
+file_path <- 'C:/Users/USER/Downloads/vendor_ZA_monthly.csv'
+df<- read.csv(file = file_path, sep = ',')
+df
+
+#Check if there's any null values 
+any(is.na(df))
+
+
+# Split the Date into year and month
+df$Year <- substr(df$Date, 1, 4)
+df$Month <- substr(df$Date, 6, 7)
+
+# Extract the year from the Date column
+df$Year <- format(as.Date(df$Date, format = "%Y-%m-%d"), "%Y")
+
+library('tidyverse')
+# Calculate the yearly averages for the selected columns
+yearly_averages <- df %>%
+  group_by(Year) %>%
+  summarise(
+    Samsung = mean(Samsung, na.rm = TRUE),
+    Huawei = mean(Huawei, na.rm = TRUE),
+    Apple = mean(Apple, na.rm = TRUE),
+    Unknown = mean(Unknown, na.rm = TRUE),
+    Nokia = mean(Nokia, na.rm = TRUE)
+  )
+
+#Reshaping the data to long format 
+library('tidyr')
+
+long <- yearly_averages %>% pivot_longer(cols = c(Samsung, Huawei, Apple, Unknown,
+                                               Nokia), names_to = 'Brands',
+                                               values_to = 'User_percentage')
+#Drawing bar graph
+
+library('ggplot2')
+ggplot(long, aes(x = Year, y = User_percentage, fill = Brands))+
+  geom_bar(stat = "identity", position = "stack") +
+  geom_text(aes(label = paste0(round(User_percentage, 1), "%")), 
+            position = position_stack(vjust = 0.5), 
+            color = "black",
+            size = 3) +  # Add percentage labels in the middle of each stack
+  scale_y_continuous(expand=c(0,0))+
+  labs(title = waiver(),
+    x = "Year",
+    y = "Mobile Used (%)",
+    fill = "Brands"
+  ) +
+  theme_minimal() +
+  scale_fill_manual(values = c("red", "lightblue", "green", "orange", 'purple')) +
+  theme(panel.background = element_blank(),
+        panel.grid = element_blank(),
+        axis.line = element_line(color = 'black'), 
+        axis.title= element_text(color = 'black', size = 12, face= 'bold'),
+        axis.text = element_text(color = 'black', size = 11),
+        legend.text = element_text(color = 'black', size = 11),
+        legend.title = element_text(color = 'black', size = 12, hjust = 0.5))
+
+#saving the plot 
+ggsave('C:/Users/USER/Desktop/Projects/mobile.png', plot = last_plot(), 
+       width = 10, height = 8, dpi = 300)
+
+
+# Calculate the yearly averages for all columns except the Date column
+Mobile <- df %>%
+  group_by(Year) %>%
+  summarise(across(where(is.numeric), ~ mean(.x, na.rm = TRUE)))
+
+#Reshaping the data to long format.
+#This data represent the top 10 cellphone brands that are used in South Africa.
+
+mobile_longer <- Mobile %>% pivot_longer(cols =c(Samsung, Huawei, Sony, LG, Vodafone,
+                                                 Nokia, RIM, Unknown, Xiaomi,Apple),
+                                         names_to = 'Brands', values_to = 'percentage')
+
+#Change year from character to numeric
+mobile_longer$Year <- as.numeric(mobile_longer$Year)
+
+#Checking empty values
+empyt <- sum(is.na(mobile_longer == ''))
+
+#Drawing a line graph to compare the using of these brands
+
+ggplot(mobile_longer, aes(x = Year, y = percentage, color = Brands)) +
+  geom_line(linewidth = 1) +
+  geom_point(size = 3, shape = 18) +
+  scale_x_continuous(limits = c(2016, 2024),
+                     breaks = seq(2016, 2024, by = 1),  
+                     expand = c(0, 0.5)) +  
+  scale_y_continuous(limits = c(0, 60),
+                     breaks = seq(0, 60, by = 5),
+                     expand = c(0, 0)) +
+  labs(title = waiver(),
+       x = "Year",
+       y = "Mobile Used (%)") +
+  theme_minimal() +
+  theme(panel.background = element_blank(),
+        panel.grid =element_blank(),
+        axis.text = element_text(color = 'black', size = 11),
+        axis.line = element_line(color = 'black'),
+        axis.ticks =element_line(color = 'black'),
+        axis.title = element_text(color = 'black', size = 12, face = 'bold'))
