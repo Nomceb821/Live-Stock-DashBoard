@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Terminal Pro — Live Stock Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+</head>
+<body>
+
+<div class="dash">
+  <h2 class="sr-only">Bloomberg-style stock market dashboard showing live prices, charts, watchlist, and market news.</h2>
+
+  <div class="top-bar">
+    <div class="logo">TERMINAL PRO <span class="live-dot"></span><span class="live-label">LIVE</span></div>
+    <div class="top-right">
+      <button class="refresh-btn" id="refreshBtn">↻ Refresh</button>
+      <span class="mkt-badge mkt-open" id="mktStatus">● LOADING...</span>
+      <span class="clock" id="clock">--:--:--</span>
+    </div>
+  </div>
+
+  <div class="ticker-tape">
+    <div class="ticker-inner" id="ticker">
+      <span class="loading-row">Fetching live prices...</span>
+    </div>
+  </div>
+
+  <div class="grid-top">
+    <div class="stat-card">
+      <div class="label">S&amp;P 500</div>
+      <div class="value" id="sp500val">--</div>
+      <div class="change" id="sp500chg">--</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">NASDAQ</div>
+      <div class="value" id="nasdaqval">--</div>
+      <div class="change" id="nasdaqchg">--</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">DOW JONES</div>
+      <div class="value" id="dowval">--</div>
+      <div class="change" id="dowchg">--</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Last Updated</div>
+      <div class="value last-updated" id="lastUpdated">--</div>
+      <div class="change data-source">Finnhub API</div>
+    </div>
+  </div>
+
+  <div class="main-grid">
+    <div class="chart-panel">
+      <div class="panel-header">
+        <div class="symbol-tabs" id="symTabs">
+          <button class="tab active" data-sym="AAPL">AAPL</button>
+          <button class="tab" data-sym="MSFT">MSFT</button>
+          <button class="tab" data-sym="NVDA">NVDA</button>
+          <button class="tab" data-sym="TSLA">TSLA</button>
+          <button class="tab" data-sym="AMZN">AMZN</button>
+        </div>
+        <div class="range-tabs" id="rangeTabs">
+          <button class="range-tab active" data-range="D">1D</button>
+          <button class="range-tab" data-range="W">1W</button>
+          <button class="range-tab" data-range="M">1M</button>
+          <button class="range-tab" data-range="3M">3M</button>
+          <button class="range-tab" data-range="Y">1Y</button>
+        </div>
+      </div>
+      <div class="price-display">
+        <span class="big-price" id="mainPrice">--</span>
+        <span class="price-change" id="mainChange">Loading...</span>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="mainChart" role="img" aria-label="Price chart for selected stock">Loading chart...</canvas>
+      </div>
+    </div>
+
+    <div class="side-panel">
+      <div class="watchlist">
+        <div class="wl-header">Watchlist</div>
+        <div id="watchlistItems"><div class="loading-row">Fetching...</div></div>
+      </div>
+      <div class="stats-panel">
+        <div class="wl-header">Market Stats</div>
+        <div class="vol-row"><span class="vol-label">Open</span><span class="vol-val" id="statOpen">--</span></div>
+        <div class="vol-row"><span class="vol-label">High</span><span class="vol-val" id="statHigh">--</span></div>
+        <div class="vol-row"><span class="vol-label">Low</span><span class="vol-val" id="statLow">--</span></div>
+        <div class="vol-row"><span class="vol-label">Prev Close</span><span class="vol-val" id="statPrev">--</span></div>
+        <div class="vol-row"><span class="vol-label">52W High</span><span class="vol-val" id="stat52h">--</span></div>
+        <div class="vol-row"><span class="vol-label">52W Low</span><span class="vol-val" id="stat52l">--</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="news-panel">
+    <div class="wl-header news-header">
+      News Feed <span class="news-source-badge">LIVE FROM FINNHUB</span>
+    </div>
+    <div id="newsFeed"><div class="loading-row">Fetching news...</div></div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
