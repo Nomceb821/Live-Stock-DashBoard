@@ -1,0 +1,528 @@
+/* =============================================
+   Terminal Pro — Live Stock Dashboard
+   style.css
+   ============================================= */
+
+/* Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Base */
+body {
+  background: #0a0e17;
+  color: #e2e8f0;
+  font-family: 'Courier New', monospace;
+}
+
+/* Accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+/* ---- Layout ---- */
+.dash {
+  padding: 16px;
+  min-height: 100vh;
+}
+
+/* ---- Top Bar ---- */
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #1e2d40;
+  padding-bottom: 12px;
+}
+
+.logo {
+  font-size: 15px;
+  font-weight: 700;
+  color: #f97316;
+  letter-spacing: 2px;
+}
+
+.live-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: #22c55e;
+  border-radius: 50%;
+  margin: 0 5px;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.live-label {
+  font-size: 10px;
+  color: #22c55e;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.top-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.clock {
+  font-size: 13px;
+  color: #64748b;
+}
+
+.mkt-badge {
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 3px;
+}
+
+.mkt-open {
+  background: #052e16;
+  color: #22c55e;
+  border: 1px solid #166534;
+}
+
+.mkt-closed {
+  background: #1c1008;
+  color: #f97316;
+  border: 1px solid #7c2d12;
+}
+
+.refresh-btn {
+  background: none;
+  border: 1px solid #1e2d40;
+  color: #475569;
+  font-size: 10px;
+  padding: 3px 8px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-family: 'Courier New', monospace;
+  transition: all 0.15s;
+}
+
+.refresh-btn:hover {
+  border-color: #334155;
+  color: #94a3b8;
+}
+
+/* ---- Ticker Tape ---- */
+.ticker-tape {
+  background: #0f172a;
+  border: 1px solid #1e2d40;
+  padding: 8px 12px;
+  margin-bottom: 16px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.ticker-inner {
+  display: inline-block;
+  animation: scroll 35s linear infinite;
+}
+
+.ticker-item {
+  display: inline-block;
+  margin-right: 32px;
+  font-size: 12px;
+}
+
+.ticker-item .sym {
+  color: #94a3b8;
+  margin-right: 6px;
+}
+
+.ticker-item .price {
+  color: #e2e8f0;
+  margin-right: 4px;
+}
+
+/* ---- Color Utilities ---- */
+.up      { color: #22c55e; }
+.down    { color: #ef4444; }
+.neutral { color: #94a3b8; }
+
+/* ---- Animations ---- */
+@keyframes scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+
+/* ---- Index Cards ---- */
+.grid-top {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.stat-card {
+  background: #0f172a;
+  border: 1px solid #1e2d40;
+  padding: 12px 14px;
+  border-radius: 4px;
+}
+
+.stat-card .label {
+  font-size: 10px;
+  color: #475569;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.stat-card .value {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.stat-card .change {
+  font-size: 11px;
+  margin-top: 4px;
+}
+
+.last-updated {
+  font-size: 13px !important;
+  color: #64748b !important;
+  margin-top: 4px;
+}
+
+.data-source {
+  color: #334155 !important;
+}
+
+/* ---- Main Grid ---- */
+.main-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 270px;
+  gap: 14px;
+  width: 100%;
+}
+
+/* ---- Chart Panel ---- */
+.chart-panel {
+  background: #0f172a;
+  border: 1px solid #1e2d40;
+  padding: 14px;
+  border-radius: 4px;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.symbol-tabs {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.tab {
+  background: none;
+  border: 1px solid #1e2d40;
+  color: #64748b;
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-family: 'Courier New', monospace;
+  transition: all 0.15s;
+}
+
+.tab.active {
+  background: #1e3a5f;
+  border-color: #3b82f6;
+  color: #60a5fa;
+}
+
+.tab:hover:not(.active) {
+  border-color: #334155;
+  color: #94a3b8;
+}
+
+.range-tabs {
+  display: flex;
+  gap: 4px;
+}
+
+.range-tab {
+  background: none;
+  border: none;
+  color: #475569;
+  font-size: 11px;
+  padding: 3px 7px;
+  cursor: pointer;
+  border-radius: 2px;
+  font-family: 'Courier New', monospace;
+  transition: all 0.15s;
+}
+
+.range-tab.active {
+  background: #1e2d40;
+  color: #94a3b8;
+}
+
+.price-display {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.big-price {
+  font-size: 28px;
+  font-weight: 700;
+  color: #f1f5f9;
+}
+
+.price-change {
+  font-size: 13px;
+}
+
+.chart-wrap {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  min-height: 160px;
+}
+
+.chart-wrap canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* ---- Side Panel ---- */
+.side-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.watchlist,
+.stats-panel {
+  background: #0f172a;
+  border: 1px solid #1e2d40;
+  border-radius: 4px;
+  padding: 12px;
+}
+
+.wl-header {
+  font-size: 10px;
+  color: #475569;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.wl-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 0;
+  border-bottom: 1px solid #0f1a2a;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+
+.wl-item:last-child {
+  border-bottom: none;
+}
+
+.wl-item:hover {
+  background: #0a1628;
+}
+
+.wl-sym {
+  font-size: 13px;
+  font-weight: 700;
+  color: #cbd5e1;
+}
+
+.wl-name {
+  font-size: 10px;
+  color: #475569;
+}
+
+.wl-price {
+  font-size: 13px;
+  text-align: right;
+}
+
+.wl-chg {
+  font-size: 10px;
+  text-align: right;
+  margin-top: 1px;
+}
+
+/* ---- Market Stats ---- */
+.vol-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  margin-bottom: 6px;
+}
+
+.vol-label { color: #475569; }
+.vol-val   { color: #94a3b8; }
+
+/* ---- News Panel ---- */
+.news-panel {
+  background: #0f172a;
+  border: 1px solid #1e2d40;
+  border-radius: 4px;
+  padding: 12px;
+  margin-top: 14px;
+}
+
+.news-header {
+  margin-bottom: 8px !important;
+}
+
+.news-source-badge {
+  color: #334155;
+  font-size: 9px;
+  margin-left: 8px;
+}
+
+.news-item {
+  padding: 6px 0;
+  border-bottom: 1px solid #0f1a2a;
+  font-size: 11px;
+  color: #64748b;
+  cursor: pointer;
+  transition: color 0.1s;
+}
+
+.news-item:last-child {
+  border-bottom: none;
+}
+
+.news-item:hover {
+  color: #94a3b8;
+}
+
+.news-tag {
+  color: #3b82f6;
+  margin-right: 6px;
+  font-weight: 700;
+}
+
+.news-time {
+  color: #334155;
+  margin-left: 6px;
+}
+
+/* ---- Utility ---- */
+.loading-row {
+  font-size: 11px;
+  color: #334155;
+  padding: 8px 0;
+  text-align: center;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 900px) {
+  .main-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .side-panel {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .watchlist,
+  .stats-panel {
+    flex: 1 1 240px;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .grid-top {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .top-right {
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: flex-end;
+  }
+
+  .chart-wrap {
+    height: 180px;
+  }
+
+  .panel-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .dash {
+    padding: 10px;
+  }
+
+  .grid-top {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .top-bar {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .top-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .clock {
+    display: none;
+  }
+
+  .symbol-tabs {
+    gap: 4px;
+  }
+
+  .tab {
+    padding: 3px 7px;
+    font-size: 10px;
+  }
+
+  .big-price {
+    font-size: 20px;
+  }
+
+  .chart-wrap {
+    height: 160px;
+  }
+
+  .stat-card .value {
+    font-size: 15px;
+  }
+
+  .news-item {
+    font-size: 10px;
+  }
+}
