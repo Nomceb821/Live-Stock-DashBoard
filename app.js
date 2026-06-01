@@ -1,7 +1,4 @@
-/* =============================================
-   Terminal Pro — Live Stock Dashboard
-   app.js
-   ============================================= */
+/* Terminal Pro — Live Stock Dashboard */
 
 const API_KEY  = 'd8c8r0pr01qidic6s0k0d8c8r0pr01qidic6s0kg';
 const BASE_URL = 'https://finnhub.io/api/v1';
@@ -31,9 +28,7 @@ let chart               = null;
 let chartResizeObserver = null;
 let liveData            = {};
 
-/* =============================================
-   API Helpers
-   ============================================= */
+/* API Helpers */
 
 async function fhFetch(path) {
   const res = await fetch(`${BASE_URL}${path}&token=${API_KEY}`);
@@ -63,9 +58,7 @@ async function fetchNews(sym) {
   }
 }
 
-/* =============================================
-   Formatting Utilities
-   ============================================= */
+/* Formatting Utilities */
 
 function fmt(n)    { return n != null ? '$' + Number(n).toFixed(2) : '--'; }
 function pctClass(v) { return v > 0 ? 'up' : v < 0 ? 'down' : 'neutral'; }
@@ -75,9 +68,7 @@ function pctStr(v) {
   return (v > 0 ? '▲ +' : v < 0 ? '▼ ' : '') + Math.abs(v).toFixed(2) + '%';
 }
 
-/* =============================================
-   Clock & Market Status
-   ============================================= */
+/* Clock & Market Status */
 
 function updateClock() {
   const now    = new Date();
@@ -95,9 +86,7 @@ function updateClock() {
   badge.className   = 'mkt-badge ' + (isOpen ? 'mkt-open' : 'mkt-closed');
 }
 
-/* =============================================
-   Chart
-   ============================================= */
+/* Chart */
 
 function buildSimulatedChart(quote, range) {
   const open  = quote.o  || quote.pc || quote.c;
@@ -208,9 +197,7 @@ function renderChart(labels, prices, isUp) {
   chartResizeObserver.observe(wrap);
 }
 
-/* =============================================
-   Main Panel
-   ============================================= */
+/* Main Panel */
 
 function updateMainPanel(sym) {
   const q = liveData[sym];
@@ -254,9 +241,7 @@ async function loadMainChart(sym, range) {
   updateMainPanel(sym);
 }
 
-/* =============================================
-   Watchlist
-   ============================================= */
+/* Watchlist */
 
 async function loadWatchlist() {
   const container = document.getElementById('watchlistItems');
@@ -301,9 +286,7 @@ async function loadWatchlist() {
   document.getElementById('lastUpdated').textContent = new Date().toLocaleTimeString();
 }
 
-/* =============================================
-   Indices
-   ============================================= */
+/* Indices */
 
 async function loadIndices() {
   for (const idx of INDICES) {
@@ -323,9 +306,7 @@ async function loadIndices() {
   }
 }
 
-/* =============================================
-   Ticker Tape
-   ============================================= */
+/* Ticker Tape */
 
 function buildTicker() {
   const syms = Object.keys(liveData);
@@ -346,9 +327,7 @@ function buildTicker() {
   el.innerHTML = items + items;
 }
 
-/* =============================================
-   News Feed
-   ============================================= */
+/* News Feed */
 
 async function loadNews(sym) {
   const feed  = document.getElementById('newsFeed');
@@ -378,9 +357,7 @@ async function loadNews(sym) {
   });
 }
 
-/* =============================================
-   Event Listeners
-   ============================================= */
+/* Event Listeners */
 
 document.querySelectorAll('#symTabs .tab').forEach(btn => {
   btn.addEventListener('click', () => {
@@ -410,9 +387,7 @@ document.getElementById('refreshBtn').addEventListener('click', async () => {
   await loadNews(currentSym);
 });
 
-/* =============================================
-   Init
-   ============================================= */
+/* Init */
 
 async function init() {
   updateClock();

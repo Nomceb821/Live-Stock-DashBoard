@@ -1,7 +1,4 @@
-/* =============================================
-   Terminal Pro — Live Stock Dashboard
-   style.css
-   ============================================= */
+
 
 /* Reset */
 * {
@@ -26,13 +23,13 @@ body {
   clip: rect(0, 0, 0, 0);
 }
 
-/* ---- Layout ---- */
+/* Layout */
 .dash {
   padding: 16px;
   min-height: 100vh;
 }
 
-/* ---- Top Bar ---- */
+/* Top Bar */
 .top-bar {
   display: flex;
   align-items: center;
@@ -112,7 +109,7 @@ body {
   color: #94a3b8;
 }
 
-/* ---- Ticker Tape ---- */
+/* Ticker Tape */
 .ticker-tape {
   background: #0f172a;
   border: 1px solid #1e2d40;
@@ -143,12 +140,12 @@ body {
   margin-right: 4px;
 }
 
-/* ---- Color Utilities ---- */
+/* Color Utilities */
 .up      { color: #22c55e; }
 .down    { color: #ef4444; }
 .neutral { color: #94a3b8; }
 
-/* ---- Animations ---- */
+/*  Animations */
 @keyframes scroll {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
@@ -202,7 +199,7 @@ body {
   color: #334155 !important;
 }
 
-/* ---- Main Grid ---- */
+/* Main Grid */
 .main-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 270px;
@@ -210,7 +207,7 @@ body {
   width: 100%;
 }
 
-/* ---- Chart Panel ---- */
+/* Chart Panel */
 .chart-panel {
   background: #0f172a;
   border: 1px solid #1e2d40;
@@ -309,7 +306,7 @@ body {
   height: 100% !important;
 }
 
-/* ---- Side Panel ---- */
+/* Side Panel */
 .side-panel {
   display: flex;
   flex-direction: column;
@@ -372,7 +369,7 @@ body {
   margin-top: 1px;
 }
 
-/* ---- Market Stats ---- */
+/* Market Stats */
 .vol-row {
   display: flex;
   justify-content: space-between;
@@ -383,7 +380,7 @@ body {
 .vol-label { color: #475569; }
 .vol-val   { color: #94a3b8; }
 
-/* ---- News Panel ---- */
+/* News Panel */
 .news-panel {
   background: #0f172a;
   border: 1px solid #1e2d40;
@@ -430,7 +427,7 @@ body {
   margin-left: 6px;
 }
 
-/* ---- Utility ---- */
+/* Utility */
 .loading-row {
   font-size: 11px;
   color: #334155;
@@ -438,7 +435,7 @@ body {
   text-align: center;
 }
 
-/* ---- Responsive ---- */
+/* Responsiveness */
 @media (max-width: 900px) {
   .main-grid {
     grid-template-columns: minmax(0, 1fr);
